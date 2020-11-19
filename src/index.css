@@ -69,6 +69,7 @@ h4{
   border-radius: .25rem;
 }
 p{
+  font-size: 1rem;
   margin-bottom: 1.25rem;
   color: #617d98;
 }
@@ -98,9 +99,7 @@ p{
 .single-tour button, .tour-price{
   color: #49a6e9;
 }
-.loading{
-  text-align: center;
-  color: #566472;
-  margin-top: 5rem;
-  letter-spacing: .3rem;
+.towns{
+  color: #102A42;
+  font-size: 1rem;
 }

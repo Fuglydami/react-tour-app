@@ -1,109 +1,35 @@
 import './index.css'
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import React from 'react'
+import {cards} from "./cards"
 
 
-const lagos = (
-  <img
-    src="https://hotels.ng/guides/wp-content/uploads/2017/06/Lagos-Lagoon_View-Hotels.ng_.jpg"
-    alt="best of lagos in 7 days tour"
-  />
-)
-
-const abuja = (
-  <img
-    src="https://techpoint.africa/wp-content/uploads/2020/03/images.jpeg"
-    alt="best of abuja in 7 days tour"
-  />
-)
-
-const porthacourt = (
-  <img
-    src="https://cdn.autojosh.com/wp-content/uploads/2019/04/Port-harcourt-Road-network-2.jpg"
-    alt="best of porthacourt in 7 days tour"
-  />
-)
-
-const oyo = (
-  <img
-    src="https://businessday.ng/wp-content/uploads/2020/05/Oyo-state-lands-housing-and-urban-development.jpg"
-    alt="best of Oyo in 7 days tour"
-  />
-)
-
-const ogun = (
-  <img
-    src="https://swifttalk.net/wp-content/uploads/2019/03/olumo-rock-abeokuta.jpg"
-    alt="best of Ogun in 7 days tour"
-  />
-)
-
-const osun = (
-  <img
-    src="https://guardian.ng/wp-content/uploads/2018/01/Osun-state.jpg"
-    alt="best of Osun in 7 days tour"
-  />
-)
-
-const title1 = <h4>Best of Lagos in 7 Days Tour</h4>
-const title2 = <h4>Best of abuja in 7 Days Tour</h4>
-const title3 = <h4>Best of porthacourt in 7 Days Tour</h4>
-const title4 = <h4>Best of oyo in 7 Days Tour</h4>
-const title5 = <h4>Best of ogun in 7 Days Tour</h4>
-const title6 = <h4>Best of osun in 7 Days Tour</h4>
-
-const price1 = 'N550,000'
-const price2 = 'N620,000'
-const price3 = 'N600,000'
-const price4 = 'N420,000'
-const price5 = 'N615,000'
-const price6 = 'N435,000'
 
 const App = () => {
-  const [loading, setLoading] = useState(true)
-  if (loading) {
-    
-      setLoading(false)
+    const cardsArray = cards.map((user, i) => {
       return (
-        <>
-          <h2 className="loading">Loading...</h2>
-        </>
+        <Article
+          id={i}
+          img={cards[i].img}
+          title={cards[i].title}
+          price={cards[i].price}
+        />
       )
-    }
-
-   // setLoading(false)
-  return (
-    <>
-      <Title />
-      <Article lagos={lagos} title1={title1} price1={price1} />
-      <Article abuja={abuja} title2={title2} price2={price2} />
-      <Article porthacourt={porthacourt} title3={title3} price3={price3} />
-      <Article oyo={oyo} title4={title4} price4={price4} />
-      <Article ogun={ogun} title5={title5} price5={price5} />
-      <Article osun={osun} title6={title6} price6={price6} />
-    </>
-  )
-}
-
-const Title = () => {
+    })
   return (
     <>
       <div className="title">
         <h2>our tours</h2>
         <div className="underline"></div>
       </div>
+      {cardsArray}
     </>
   )
 }
-// const Section =(props)=>{
-//   const [deleteItem, setDeleteItem] = useState("this a boy")
-//  const handleClick = () => {
-//    setDeleteItem([])
-//  }
 
-// }
 
-const Article = (props) => {
+const Article = ({img, title, price}) => {
+
   const [deleteItem, setDeleteItem] = useState(true)
 
   const [show, setShow] = useState(true)
@@ -129,27 +55,14 @@ const Article = (props) => {
           <section>
             <div>
               <article className="single-tour">
-                {props.lagos}
-                {props.abuja}
-                {props.porthacourt}
-                {props.oyo}
-                {props.ogun}
-                {props.osun}
+                <img src={img} alt="photos"/>
                 <footer>
                   <div className="tour-info">
-                    {props.title1}
-                    {props.title2}
-                    {props.title3}
-                    {props.title4}
-                    {props.title5}
-                    {props.title6}
+                      <h4 className="towns">
+                        {title}
+                      </h4>
                     <h4 className="tour-price">
-                      {props.price1}
-                      {props.price2}
-                      {props.price3}
-                      {props.price4}
-                      {props.price5}
-                      {props.price6}
+                      {price} 
                     </h4>
                   </div>
                   <p>
