@@ -1,21 +1,31 @@
 import './index.css'
-import { useState} from 'react'
+import { useState } from 'react'
 import React from 'react'
-import {cards} from "./cards"
-
-
+import { cards } from './cards'
 
 const App = () => {
-    const cardsArray = cards.map((user, i) => {
-      return (
-        <Article
-          id={i}
-          img={cards[i].img}
-          title={cards[i].title}
-          price={cards[i].price}
-        />
-      )
-    })
+  // const [isLoading, setIsLoading] = useState(true)
+
+  // if (isLoading) {
+  //   return (
+  //     <>
+  //       <h1>Loading...</h1>
+  //     </>
+  //   )
+  // }
+
+  const cardsArray = cards.map((user, i) => {
+    return (
+      <Article
+        id={i}
+        img={cards[i].img}
+        title={cards[i].title}
+        price={cards[i].price}
+        synopsis1={cards[i].synopsis1}
+        synopsis2={cards[i].synopsis2}
+      />
+    )
+  })
   return (
     <>
       <div className="title">
@@ -27,9 +37,7 @@ const App = () => {
   )
 }
 
-
-const Article = ({img, title, price}) => {
-
+const Article = ({ img, title, price, synopsis1, synopsis2 }) => {
   const [deleteItem, setDeleteItem] = useState(true)
 
   const [show, setShow] = useState(true)
@@ -55,33 +63,22 @@ const Article = ({img, title, price}) => {
           <section>
             <div>
               <article className="single-tour">
-                <img src={img} alt="photos"/>
+                <img src={img} alt="photos" />
                 <footer>
                   <div className="tour-info">
-                      <h4 className="towns">
-                        {title}
-                      </h4>
-                    <h4 className="tour-price">
-                      {price} 
-                    </h4>
+                    <h4 className="towns">{title}</h4>
+                    <h4 className="tour-price">{price}</h4>
                   </div>
                   <p>
                     {show && (
                       <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quo nemo qui libero laborum illo aliquid earum dolores
-                        animi magni doloribus!...
+                        {synopsis1}
                         <button onClick={readMore}> read more</button>
                       </p>
                     )}
                     {hide && (
                       <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quo nemo qui libero laborum illo aliquid earum dolores
-                        animi magni doloribus! nihil eos tenetur obcaecati
-                        impedit blanditiis explicabo, nostrum aspernatur eaque
-                        quod possimus temporibus excepturi et, ipsum iste ut
-                        autem mollitia?{' '}
+                        {synopsis2}
                         <button onClick={showLess}> show less</button>
                       </p>
                     )}
