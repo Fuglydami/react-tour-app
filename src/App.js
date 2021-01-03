@@ -1,73 +1,59 @@
-import './index.css'
-import { useState } from 'react'
-import React from 'react'
-import { HomeTitle } from './homeTitle'
-import { data } from './data'
+import React, { useState, useEffect } from 'react'
+import Loading from './Loading'
+import Tours from './Tours'
 
-const App = () => {
-  const Cards = ({ img, title, price, info }) => {
-    const [isInfoExpanded, setIsInfoExpanded] = useState(false)
-    const [isTourRemoved, setIsTourRemoved] = useState(true)
 
-    const toggleBtn = () => {
-      setIsInfoExpanded(!isInfoExpanded)
+const url = 'https://course-api.com/react-tours-project'
+
+function App() {
+  const [loading, setLoading] = useState(true)
+  const [tours, setTours] = useState([])
+
+  const removeTour = (id) => {
+    const newTours = tours.filter((tour) => tour.id !== id)
+    setTours(newTours)
+  }
+
+  const fetchTours = async () => {
+    setLoading(true)
+
+    try {
+      const response = await fetch(url)
+      const tours = await response.json()
+      setLoading(false)
+      setTours(tours)
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
     }
-    const handleClick = () => {
-      setIsTourRemoved(!isTourRemoved)
-    }
+  }
+  useEffect(() => {
+    fetchTours()
+  }, [])
+  if (loading) {
     return (
-      <>
-        {isTourRemoved ? (
-          <main>
-            <section>
-              <div>
-                <article className="single-tour">
-                  <img src={img} alt={title} />
-                  <footer>
-                    <div className="tour-info">
-                      <h4 className="towns">{title}</h4>
-                      <h4 className="tour-price">{price}</h4>
-                    </div>
-                    <p>
-                      {isInfoExpanded ? info : `${info.substring(0, 200)}...`}
-
-                      <button onClick={toggleBtn}>
-                        {isInfoExpanded ? ' show less' : '  read more'}
-                      </button>
-                    </p>
-                    <button className="delete-btn" onClick={handleClick}>
-                      not interested
-                    </button>
-                  </footer>
-                </article>
-              </div>
-            </section>
-          </main>
-        ) : (
-          []
-        )}
-      </>
+      <main>
+        <Loading />
+      </main>
     )
   }
-  const dataArray = data.map((user, i) => {
+  if (tours.length === 0) {
     return (
-      <>
-        <Cards
-          id={data[i].id}
-          img={data[i].img}
-          title={data[i].title}
-          price={data[i].price}
-          info={data[i].info}
-        />
-      </>
+      <main>
+        <div className="title">
+          <h2>no tour left</h2>
+          <button className="btn" onClick={fetchTours}>
+            {' '}
+            refresh
+          </button>
+        </div>
+      </main>
     )
-  })
-
+  }
   return (
-    <>
-      <HomeTitle />
-      {dataArray}
-    </>
+    <main>
+      <Tours tours={tours} removeTour={removeTour} />
+    </main>
   )
 }
 
